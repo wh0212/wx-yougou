@@ -1,0 +1,10 @@
+/* view{
+  color: var(--themeColor);
+} */
+.swiper{
+  width: 750rpx;
+  height: 340rpx
+}
+.image{
+  width: 100%;
+}

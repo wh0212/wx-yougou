@@ -1,0 +1,11 @@
+<view>
+  <!-- 搜索框 -->
+  <Search></Search>
+  <!-- 轮播图 -->
+  <swiper autoplay indicator-dots circular class="swiper">
+    <swiper-item wx:for="{{swiperList}}" wx:key="index">
+      <image mode="widthFix" class="image" src="{{item.image_src}}"></image>
+    </swiper-item>
+  </swiper>
+
+</view>
