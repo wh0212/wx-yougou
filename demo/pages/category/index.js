@@ -1,3 +1,4 @@
+import { request } from "../../request/index"
 // pages/category/index.js
 Page({
 
@@ -5,16 +6,72 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    leftMenuList: [],
+    rightCountent: [],
+    currentIndex:0
   },
-
+  CateList: [],
+  handleitem(e){
+    const {index} = e.currentTarget.dataset
+    // 右侧 不同索引
+    let rightCountent = this.CateList[index].children;
+    console.log(index)
+    this.setData({
+      currentIndex:index,
+      rightCountent
+    })
+    
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //获取本地存储
+    const Cates = wx.getStorageSync("cates");
+    //判断
+    if(!Cates){
+      this.getCates()
+    }else{
+      //过期时间
+      if(Date.now()-Cates.time>1000*10){
+        console.log(11111)
+        this.getCates()
+      }else{
+        console.log("旧的数据")
+        this.CateList = Cates.data;
+        //左侧
+        let leftMenuList = this.CateList.map((v) => v.cat_name);
+        //右侧
+        let rightCountent = this.CateList[0].children;
+        this.setData({
+          leftMenuList,
+          rightCountent
+        })
+      }
+    }
+    
   },
+  //获取分类数据
+  getCates() {
+    request({
+      url: "https://api-hmugo-web.itheima.net/api/public/v1/categories"
+    }).then((res) => {
+      // console.log(res.data.message);
+      this.CateList = res.data.message;
+      //把接口数据存入到本地存储
+      wx.setStorageSync("cates", {time:Date.now(),data:this.CateList})
+      // console.log(this.CateList)
+      //左侧
+      let leftMenuList = this.CateList.map((v) => v.cat_name);
+      //右侧
+      let rightCountent = this.CateList[0].children;
+      this.setData({
+        leftMenuList,
+        rightCountent
+      })
 
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
