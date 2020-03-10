@@ -37,7 +37,6 @@ Page({
     }else{
       //过期时间
       if(Date.now()-Cates.time>1000*10){
-        console.log(11111)
         this.getCates()
       }else{
         console.log("旧的数据")
