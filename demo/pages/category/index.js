@@ -1,4 +1,5 @@
 import { request } from "../../request/index"
+// import regener from "../../lib/runtime/runtime"
 // pages/category/index.js
 Page({
 
@@ -8,7 +9,8 @@ Page({
   data: {
     leftMenuList: [],
     rightCountent: [],
-    currentIndex:0
+    currentIndex:0,
+    scrollTop:0
   },
   CateList: [],
   handleitem(e){
@@ -18,7 +20,8 @@ Page({
     console.log(index)
     this.setData({
       currentIndex:index,
-      rightCountent
+      rightCountent,
+      scrollTop:0
     })
     
   },
@@ -54,6 +57,8 @@ Page({
   //获取分类数据
   getCates() {
     request({
+      //简化
+      // url:"/categories"
       url: "https://api-hmugo-web.itheima.net/api/public/v1/categories"
     }).then((res) => {
       // console.log(res.data.message);
@@ -71,7 +76,26 @@ Page({
       })
 
     })
+    
   },
+  /*
+  1.使用async await来发送请求
+  */
+  // async getCates(){
+  //   const res = await request({url:"https://api-hmugo-web.itheima.net/api/public/v1/categories"})
+  //         this.CateList = res.data.message;
+  //     //把接口数据存入到本地存储
+  //     wx.setStorageSync("cates", {time:Date.now(),data:this.CateList})
+  //     // console.log(this.CateList)
+  //     //左侧
+  //     let leftMenuList = this.CateList.map((v) => v.cat_name);
+  //     //右侧
+  //     let rightCountent = this.CateList[0].children;
+  //     this.setData({
+  //       leftMenuList,
+  //       rightCountent
+  //     })
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
