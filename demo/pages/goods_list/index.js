@@ -1,3 +1,4 @@
+import {request} from "../../request/index"
 // pages/goods_list/index.js
 Page({
 
@@ -21,15 +22,23 @@ Page({
         value:"价格",
         isActive:false
       }
-    ]
+    ],
+    goodsLis:[]
   },
-  
+  //接口要的参数
+  Queryparams:{
+    query:"",
+    cid:"",
+    pagenum:1,
+    pagesize:10
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     console.log(options)
-    
+    this.Queryparams.cid = options.cid
+    this.goodsList()
   },
   tabsItemchange(e) {
     const { index } = e.detail;
@@ -37,6 +46,19 @@ Page({
     tabs.map(v => v.id === index ? v.isActive = true : v.isActive = false)
     this.setData({
       tabs
+    })
+  },
+  goodsList(){
+    request({
+      url:"https://api-hmugo-web.itheima.net/api/public/v1/goods/search",
+      data:this.Queryparams
+    }).then((res)=>{
+      
+      const {goods} = res.data.message;
+      console.log(goods);
+      this.setData({
+        goodsLis: goods
+      })
     })
   },
   /**

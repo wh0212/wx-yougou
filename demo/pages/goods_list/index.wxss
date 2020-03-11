@@ -7,7 +7,7 @@
   flex: 2;
   display: flex;
   justify-content: center;
-  justify-items: center;
+  align-items: center;
 }
 .first_tab .goods_item .goods_img_warp image {
   width: 70%;
@@ -19,7 +19,7 @@
   justify-content: space-around;
 }
 .first_tab .goods_item .goods_info_wrap .goods_name {
-  display: -webkit-flex;
+  display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

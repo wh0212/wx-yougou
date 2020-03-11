@@ -8,7 +8,7 @@
             flex: 2;
             display: flex;
             justify-content: center;
-            justify-items: center;
+            align-items: center;
             image{
                 width: 70%;
             }
@@ -19,10 +19,11 @@
             flex-direction: column;
             justify-content: space-around;
             .goods_name{
-                display: -webkit-flex;
+                display: -webkit-box;
                 overflow: hidden;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2;
+                // border:1px red solid
             }
             .goods_price{
                 color:var(--themeColor);
