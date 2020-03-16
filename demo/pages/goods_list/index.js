@@ -32,6 +32,8 @@ Page({
     pagenum:1,
     pagesize:10
   },
+  //总页数
+  tatalPages:1,
   /**
    * 生命周期函数--监听页面加载
    */
@@ -54,12 +56,18 @@ Page({
       data:this.Queryparams
     }).then((res)=>{
       
-      const {goods} = res.data.message;
-      console.log(goods);
+      const {goods,total} = res.data.message;
+      console.log(res.data);
+      //总页数= Math.ceil(总条数 / 页容量)
+      this.tatalPages = Math.ceil(total / this.Queryparams.pagesize)
+
       this.setData({
-        goodsLis: goods
+        //拼接数据
+        goodsLis: [...this.data.goodsLis,...goods]
       })
     })
+    //关闭下拉刷新的窗口
+    wx.stopPullDownRefresh()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -93,6 +101,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    //重置数组为空
+    this.setData({
+      goodsLis:[]
+    })
+    //重置页码
+    this.Queryparams.pagenum=1;
+    //发送请求
+    this.goodsList()
 
   },
 
@@ -100,7 +116,17 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    //当前页码是否大于等于总页数
+    if (this.Queryparams.pagenum >= this.tatalPages){
+      console.log("no")
+      wx.showToast({
+        title: '没有下一页数据了',
+      })
+    }else{
+      console.log("yes")
+      this.Queryparams.pagenum++;
+      this.goodsList()
+    }
   },
 
   /**
