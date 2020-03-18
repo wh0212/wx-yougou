@@ -40,7 +40,8 @@ Page({
   onLoad: function (options) {
     console.log(options)
     this.Queryparams.cid = options.cid
-    this.goodsList()
+    this.goodsList();
+
   },
   tabsItemchange(e) {
     const { index } = e.detail;
@@ -52,7 +53,7 @@ Page({
   },
   goodsList(){
     request({
-      url:"https://api-hmugo-web.itheima.net/api/public/v1/goods/search",
+      url:"/goods/search",
       data:this.Queryparams
     }).then((res)=>{
       

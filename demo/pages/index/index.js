@@ -34,7 +34,7 @@ Page({
   //轮播
   swiperUrl() {
     request({
-      url: "https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata"
+      url: "/home/swiperdata"
     }).then((res) => {
       this.setData({
         swiperList: res.data.message
@@ -44,7 +44,7 @@ Page({
   //分类导航
   catesUrl(){
     request({
-      url: "https://api-hmugo-web.itheima.net/api/public/v1/home/catitems"
+      url: "/home/catitems"
     }).then((res)=>{
       // console.log(res.data)
       this.setData({
@@ -55,7 +55,7 @@ Page({
   //楼层数据
   getFloor(){
     request({
-      url:"https://api-hmugo-web.itheima.net/api/public/v1/home/floordata"
+      url:"/home/floordata"
     }).then((res)=>{
       this.setData({
         getfloorList:res.data.message

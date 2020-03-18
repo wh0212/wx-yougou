@@ -5,7 +5,12 @@
     <!-- <block wx:if="{{tabs[index].isActive}}" wx:for="{{tabs}}" wx:key="id"></block> -->
     <block wx:if="{{tabs[0].isActive}}">
         <view class="first_tab">
-            <navigator class="goods_item" wx:for="{{goodsLis}}" wx:key="goods_id">
+            <navigator 
+            url="/pages/goos_detail/index?goods_id={{item.goods_id}}" 
+            class="goods_item" 
+            wx:for="{{goodsLis}}" 
+            wx:key="goods_id"
+            >
                 <!-- 左侧 -->
                 <view class="goods_img_warp">
                     <!-- 默认图片 -->
@@ -19,6 +24,7 @@
             </navigator>
         </view>
     </block>
-    <block wx:elif="{{tabs[1].isActive}}">2</block>
+    <block wx:elif="{{tabs[1].isActive}}">2
+    </block>
     <block wx:elif="{{tabs[2].isActive}}">3</block>
 </Tabs>

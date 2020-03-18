@@ -58,7 +58,7 @@ Page({
     request({
       //简化
       // url:"/categories"
-      url: "https://api-hmugo-web.itheima.net/api/public/v1/categories"
+      url: "/categories"
     }).then((res) => {
       // console.log(res.data.message);
       this.CateList = res.data.message;
