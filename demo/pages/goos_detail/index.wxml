@@ -1,1 +1,29 @@
-<Search/>
+<view class="detail_swiper">
+  <swiper autoplay circular indicator-dots>
+    <swiper-item wx:for="{{goodsData.pics}}" wx:key="pics_id">
+      <image mode="widthFix" src="{{item.pics_big}}" />
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="goods_price">￥{{goodsData.goods_price}}</view>
+
+<view class="goods_name_row">
+  <view class="goods_name">{{goodsData.goods_name}}</view>
+  <view class="goods_coolect">
+    <text class="iconfont iconshoucang"></text>
+    <view class="collect_text">收藏</view>
+  </view>
+</view>
+
+
+<view class="goods_info">
+  <view class="goods_info_title">图文详情</view>
+  <view class="goods_info_content">
+    <!-- {{goodsData.goods_introduce}} -->
+    <!-- 富文本 -->
+    <rich-text class="" nodes="{{goodsData.goods_introduce}}">
+      
+    </rich-text>
+  </view>
+</view>
