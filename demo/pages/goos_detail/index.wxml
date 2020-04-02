@@ -23,7 +23,28 @@
     <!-- {{goodsData.goods_introduce}} -->
     <!-- 富文本 -->
     <rich-text class="" nodes="{{goodsData.goods_introduce}}">
-      
+
     </rich-text>
+  </view>
+</view>
+
+<view class="btm_tool">
+  <view class="tool_item">
+    <view class="iconfont iconkefu"></view>
+    <view>客服</view>
+  </view>
+  <view class="tool_item">
+    <view class="iconfont iconkefu"></view>
+    <view>客服</view>
+  </view>
+  <view class="tool_item">
+    <view class="iconfont iconkefu"></view>
+    <view>客服</view>
+  </view>
+  <view class="tool_item btn_cart">
+    加入购物车
+  </view>
+  <view class="tool_item btn_buy">
+    立即购买
   </view>
 </view>
