@@ -15,19 +15,15 @@
     <view class="collect_text">收藏</view>
   </view>
 </view>
-
-
 <view class="goods_info">
   <view class="goods_info_title">图文详情</view>
   <view class="goods_info_content">
     <!-- {{goodsData.goods_introduce}} -->
     <!-- 富文本 -->
     <rich-text class="" nodes="{{goodsData.goods_introduce}}">
-
     </rich-text>
   </view>
 </view>
-
 <view class="btm_tool">
   <view class="tool_item">
     <view class="iconfont iconkefu"></view>
@@ -35,11 +31,11 @@
   </view>
   <view class="tool_item">
     <view class="iconfont iconkefu"></view>
-    <view>客服</view>
+    <view>店铺</view>
   </view>
   <view class="tool_item">
     <view class="iconfont iconkefu"></view>
-    <view>客服</view>
+    <view>收藏</view>
   </view>
   <view class="tool_item btn_cart">
     加入购物车
