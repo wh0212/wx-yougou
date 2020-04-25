@@ -7,7 +7,35 @@ Page({
   data: {
 
   },
+  //收获地址按钮
+  handleChooseAddress() {
+    //获取权限
+    wx - wx.getSetting({
+      success: (result) => {
+        //获取权限状态--属性名怪异的时候都需要使用["属性名"]
+        const scopeAddress = result.authSetting["scope.address"];
+        if (scopeAddress === true || scopeAddress === undefined) {
+          wx.chooseAddress({
+            success: (res) => {
+              console.log(res);
 
+            },
+          })
+        } else {
+          //用户取消过授权
+          wx - wx.openSetting({
+            success: (result) => {
+              wx.chooseAddress({
+                success: (res3) => {
+                  console.log(res3);
+                },
+              })
+            }
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
