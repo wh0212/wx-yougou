@@ -1,3 +1,4 @@
+import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx"
 // pages/cart/index.js
 Page({
 
@@ -10,29 +11,45 @@ Page({
   //收获地址按钮
   handleChooseAddress() {
     //获取权限
-    wx - wx.getSetting({
-      success: (result) => {
-        //获取权限状态--属性名怪异的时候都需要使用["属性名"]
-        const scopeAddress = result.authSetting["scope.address"];
-        if (scopeAddress === true || scopeAddress === undefined) {
-          wx.chooseAddress({
-            success: (res) => {
-              console.log(res);
+    // wx - wx.getSetting({
+    //   success: (result) => {
+    //     //获取权限状态--属性名怪异的时候都需要使用["属性名"]
+    //     const scopeAddress = result.authSetting["scope.address"];
+    //     if (scopeAddress === true || scopeAddress === undefined) {
+    //       wx.chooseAddress({
+    //         success: (res) => {
+    //           console.log(res);
+    //         },
+    //       })
+    //     } else {
+    //       //用户取消过授权
+    //       wx - wx.openSetting({
+    //         success: (result) => {
+    //           wx.chooseAddress({
+    //             success: (res3) => {
+    //               console.log(res3);
+    //             },
+    //           })
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
+    getSetting().then((result) => {
+      const scopeAddress = result.authSetting["scope.address"];
+      if (scopeAddress === true || scopeAddress === undefined) {
+        //调用获取收获地址api
+        chooseAddress().then((res) => {
+          console.log(res);
 
-            },
-          })
-        } else {
-          //用户取消过授权
-          wx - wx.openSetting({
-            success: (result) => {
-              wx.chooseAddress({
-                success: (res3) => {
-                  console.log(res3);
-                },
-              })
-            }
-          })
-        }
+        })
+      } else {
+        openSetting().then(res4=>{
+          chooseAddress().then((res5) => {
+          console.log(res5);
+        })
+        })
+        
       }
     })
   },
