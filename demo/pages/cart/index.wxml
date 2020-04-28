@@ -1,5 +1,56 @@
 <view class="revice_address_row">
-    <view class="address_btn">
+    <view wx:if="{{!address.userName}}" class="address_btn">
         <button bind:tap="handleChooseAddress" type="primary" plain>获取收获地址</button>
     </view>
+    <view class="user_info_row" wx:else>
+        <view class="user_info">
+            <view>{{address.userName}}</view>
+            <view>
+                {{address.provinceName+address.cityName+address.countyName+address.detailInfo}}
+            </view>
+        </view>
+        <view class="user_phone">{{address.telNumber}}</view>
+    </view>
+</view>
+<view class="cart_content">
+    <view class="cart_title">购物车</view>
+    <view class="cart_main">
+        <view class="cart_item">
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox></checkbox>
+                </checkbox-group>
+            </view>
+            <navigator class="cart_img_wrap">
+                <image mode="widthFix" class="" src="https://p.qpic.cn/mttcircle/0/512fdb49b228c1248m101257i101652783_201907w02_81e33114341e6eea1a2393e0a6d1a6e1.jp/0"></image>
+            </navigator>
+            <view class="cart_info_wrap">
+                <view class="goods_name">dfsdfsdfdsf</view>
+                <view class="goods_price_wrap">
+                    <view class="goods_price">444</view>
+                    <view class="cart_num_tool">
+                        <view class="num_edit">-</view>
+                        <view class="goods_num">10</view>
+                        <view class="num_edit">+</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="footer_tool">
+    <view class="all_chk_wrap">
+        <checkbox-group bindchange="">
+            <checkbox>全选</checkbox>
+        </checkbox-group>
+    </view>
+    <view class="total_perice_wrap">
+        <view class="total_price">
+            合计:
+            <text class="total_price_text">￥999</text>
+            
+        </view>
+        <view>包含运费</view>
+    </view>
+    <view class="order_pay_wrap">结算(2)</view>
 </view>

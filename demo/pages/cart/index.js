@@ -1,4 +1,8 @@
-import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx"
+import {
+  getSetting,
+  chooseAddress,
+  openSetting
+} from "../../utils/asyncWx"
 // pages/cart/index.js
 Page({
 
@@ -6,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    address: {}
   },
   //收获地址按钮
   handleChooseAddress() {
@@ -35,23 +39,31 @@ Page({
     //     }
     //   }
     // })
-    getSetting().then((result) => {
-      const scopeAddress = result.authSetting["scope.address"];
-      if (scopeAddress === true || scopeAddress === undefined) {
-        //调用获取收获地址api
-        chooseAddress().then((res) => {
-          console.log(res);
+    try {
+      getSetting().then((result) => {
+        const scopeAddress = result.authSetting["scope.address"];
+        if (scopeAddress === false) {
+          //调用获取收获地址api
+          openSetting().then((res) => {
+            wx.chooseAddress({
+              success: (res2) => {
+                console.log(res2);
+              },
+            })
+          })
+        }
+        wx.chooseAddress({
+          success: (res) => {
+            console.log(res);
+            //存入缓存中
+            wx.setStorageSync('address', res)
+          },
+        })
+      })
+    } catch (error) {
+      console.log(error);
+    }
 
-        })
-      } else {
-        openSetting().then(res4=>{
-          chooseAddress().then((res5) => {
-          console.log(res5);
-        })
-        })
-        
-      }
-    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -71,7 +83,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const address = wx.getStorageSync('address')
+    this.setData({
+      address
+    })
   },
 
   /**
