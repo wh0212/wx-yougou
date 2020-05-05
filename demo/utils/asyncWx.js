@@ -38,3 +38,21 @@ export const openSetting=()=>{
         });
     })
 };
+
+//showModal 
+export const showModal=(content)=>{
+    console.log(content);
+    
+    return new Promise((resolve,reject)=>{
+        wx.showModal({
+            title: '提示',
+            content:content.content,
+            success: (res) => {
+              resolve(res)
+            },
+            fail:(err)=>{
+                reject(err)
+            }
+          })
+    })
+}

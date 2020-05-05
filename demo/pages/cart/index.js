@@ -1,7 +1,8 @@
 import {
   getSetting,
   chooseAddress,
-  openSetting
+  openSetting,
+  showModal
 } from "../../utils/asyncWx"
 // pages/cart/index.js
 Page({
@@ -10,7 +11,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    address: {}
+    address: {},
+    cart: [],
+    allChecked: false,
+    totalPrice: 0,
+    totalNum: 0
   },
   //收获地址按钮
   handleChooseAddress() {
@@ -78,17 +83,91 @@ Page({
   onReady: function () {
 
   },
+  //商品选中-反选
+  handeItemChange(e) {
+    const goods_id = e.currentTarget.dataset.id;
+    let {
+      cart
+    } = this.data;
+    let index = cart.findIndex(v => v.goods_id === goods_id)
+    cart[index].checked = !cart[index].checked;
+    //把购物车数据重新设置到data和缓存中
+    this.setCart(cart)
+
+  },
+  //设置购物车状态 、重新计算、数据、全选 总价格
+  setCart(cart) {
+    let allChecked = true
+    //总价格 、总数量
+    let totalPrice = 0;
+    let totalNum = 0;
+    cart.forEach(v => {
+      if (v.checked) {
+        totalPrice += v.num * v.goods_price;
+        totalNum += v.num
+      } else {
+        allChecked = false
+      }
+    });
+    allChecked = cart.length != 0 ? allChecked : false;
+    this.setData({
+      cart,
+      totalPrice,
+      totalNum,
+      allChecked
+    })
+    wx.setStorageSync('cart', cart)
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const address = wx.getStorageSync('address')
+    const address = wx.getStorageSync('address');
+    const cart = wx.getStorageSync('cart') || [];
     this.setData({
       address
     })
+    this.setCart(cart)
   },
+  //全选
+  handleItemAllCheck() {
+    let {
+      cart,
+      allChecked
+    } = this.data;
+    allChecked = !allChecked;
+    cart.forEach(v => v.checked = allChecked);
+    this.setCart(cart)
+  },
+  handleItemNumEdit(e) {
 
+    const {
+      oper,
+      id
+    } = e.currentTarget.dataset;
+    let {
+      cart
+    } = this.data;
+    const index = cart.findIndex(v => v.goods_id === id);
+    if (cart[index].num === 1 && oper === -1) {
+      showModal({
+        content:"您是否要删除？"
+      }).then((res)=>{
+        if (res.confirm) {
+          cart.splice(index,1)
+          this.setCart(cart)
+        }else if(res.cancel){
+          console.log("用户取消");
+          
+        }
+      })
+    } else {
+      cart[index].num += oper;
+      this.setCart(cart)
+    }
+
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

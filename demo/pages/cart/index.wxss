@@ -49,6 +49,7 @@
   justify-content: space-around;
 }
 .cart_content .cart_main .cart_item .cart_info_wrap .goods_name {
+  word-break: break-all;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
