@@ -141,7 +141,6 @@ Page({
     this.setCart(cart)
   },
   handleItemNumEdit(e) {
-
     const {
       oper,
       id
